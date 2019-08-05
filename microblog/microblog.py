@@ -59,3 +59,9 @@ if __name__ == '__main__':
         results = parse_page(json)
         for result in results:
             print(result)
+
+            if 'pics' in result:
+                for i, url in enumerate(result['pics']):
+                    img = requests.get(url)
+                    with open(result['id']+'-{}.jpg'.format(i), 'wb') as f:
+                        f.write(img.content)
