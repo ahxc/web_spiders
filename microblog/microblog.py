@@ -53,6 +53,12 @@ def parse_page(json):
 
             yield weibo
 
+def sava_pics(result):
+    for i, url in enumerate(result['pics']):
+        img = requests.get(url)
+        with open(result['id']+'-{}.jpg'.format(i), 'wb') as f:
+            f.write(img.content)
+
 if __name__ == '__main__':
     for page in range(1, 11):
         json = get_page(page)
@@ -61,7 +67,4 @@ if __name__ == '__main__':
             print(result)
 
             if 'pics' in result:
-                for i, url in enumerate(result['pics']):
-                    img = requests.get(url)
-                    with open(result['id']+'-{}.jpg'.format(i), 'wb') as f:
-                        f.write(img.content)
+                sava_pics(result)
