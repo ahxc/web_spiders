@@ -27,7 +27,7 @@ def get_page(page):
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             return response.json()
-    
+
     except requests.ConnectionError as e:
         print('Error', e.args)
 
@@ -38,7 +38,7 @@ def parse_page(json):
             item = item.get('mblog')
             weibo = {}
             weibo['id'] = item.get('id')
-            weibo['text'] = pq(item.get('text')).text()
+            weibo['text'] = pq(item.get('text')).text()# 初始化并获得其文本
             weibo['reposts'] = item.get('reposts_count')
             weibo['comments'] = item.get('comments_count')
             weibo['attitudes'] = item.get('attitudes_count')
